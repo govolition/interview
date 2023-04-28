@@ -15,9 +15,11 @@ async function getDb() {
 
 export async function setup() {
   const db = await getDb()
-
   await db.exec("CREATE TABLE lorem (info TEXT)");
+}
 
+export async function insertDummyData() {
+  const db = await getDb()
   const stmt = await db.prepare("INSERT INTO lorem VALUES (?)");
   for (let i = 0; i < 10; i++) {
     await stmt.run("Ipsum " + i);
@@ -25,7 +27,7 @@ export async function setup() {
   await stmt.finalize();
 }
 
-export async function test() {
+export async function testGetAllRows() {
   const db = await getDb()
   return db.all("SELECT rowid AS id, info FROM lorem")
 }
