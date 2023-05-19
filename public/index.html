@@ -2,16 +2,19 @@
   <head>
     <title>Hello World</title>
     <style>
-      /* Center the text inside the div */
       .center {
         text-align: center;
         margin-top: 50px;
       }
     </style>
+    <script src="/fetch.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', async function() {
         // Code to be executed when the page has loaded
         console.log('Hello World!');
+  
+        // console.log('Example GET', await getJson('http://localhost:3000/db'))
+        // console.log('Example POST', await postJson('http://localhost:3000/insert', { hello: 'world' }))
       });
     </script>
   </head>
