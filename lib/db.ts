@@ -6,7 +6,7 @@ async function getDb() {
   if (!db) {
     db = await open({
       filename: ':memory:',
-      // filename: 'data/interveiw.db',
+      // filename: 'data/interview.db',
       driver: sqlite3.cached.Database,
     });
   }
@@ -15,20 +15,16 @@ async function getDb() {
 
 export async function setup() {
   const db = await getDb()
-  await db.exec("CREATE TABLE lorem (info TEXT)");
+  await db.exec("CREATE TABLE example (title TEXT, content TEXT)");
 }
 
-export async function insertDummyData() {
+export async function exampleInsertRow(title: string, content: string) {
   const db = await getDb()
-  const stmt = await db.prepare("INSERT INTO lorem VALUES (?)");
-  for (let i = 0; i < 10; i++) {
-    await stmt.run("Ipsum " + i);
-  }
-  await stmt.finalize();
+  return await db.run("INSERT INTO example (title, content) VALUES (?, ?)", [title, content]);
 }
 
-export async function testGetAllRows() {
+export async function exampleGetAllRows() {
   const db = await getDb()
-  return db.all("SELECT rowid AS id, info FROM lorem")
+  return db.all("SELECT rowid AS id, title, content FROM example")
 }
 
